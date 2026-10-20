@@ -15,42 +15,46 @@
         body {
             background-color: #121212;
             color: #ffffff;
-            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
             padding: 20px;
         }
 
         .container {
-            max-width: 600px;
-            margin: 0 auto;
             background-color: #1e1e1e;
             padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+            max-width: 450px;
+            width: 100%;
             border: 1px solid #333;
         }
 
         h1 {
             text-align: center;
             color: #d4af37;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             text-transform: uppercase;
             letter-spacing: 2px;
         }
 
-        p.subtitle {
+        .subtitle {
             text-align: center;
             color: #aaa;
+            font-size: 0.9rem;
             margin-bottom: 25px;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
 
         label {
             display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
+            margin-bottom: 6px;
+            font-weight: 600;
             color: #ddd;
         }
 
@@ -63,48 +67,35 @@
             border: 1px solid #444;
             background-color: #2a2a2a;
             color: #fff;
-            font-size: 16px;
+            font-size: 1rem;
+            outline: none;
         }
 
-        input[type="text"]:focus,
-        input[type="date"]:focus,
-        input[type="time"]:focus {
-            outline: none;
+        input:focus {
             border-color: #d4af37;
         }
 
-        .services-list {
-            background-color: #2a2a2a;
+        .services-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background-color: #252525;
+            padding: 12px;
             border-radius: 6px;
-            padding: 15px;
-            border: 1px solid #444;
+            border: 1px solid #333;
         }
 
         .service-item {
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid #383838;
+            font-size: 0.95rem;
         }
 
-        .service-item:last-child {
-            border-bottom: none;
-        }
-
-        .service-item label {
-            margin-bottom: 0;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: normal;
-        }
-
-        .service-item input[type="checkbox"] {
+        .service-item input {
+            accent-color: #d4af37;
             width: 18px;
             height: 18px;
-            accent-color: #d4af37;
             cursor: pointer;
         }
 
@@ -114,39 +105,33 @@
         }
 
         .total-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 20px;
-            padding-top: 15px;
-            border-top: 2px solid #444;
-            font-size: 18px;
+            text-align: right;
+            margin-top: 15px;
+            font-size: 1.1rem;
             font-weight: bold;
+            color: #d4af37;
         }
 
-        .total-price {
-            color: #25d366;
-            font-size: 22px;
-        }
-
-        .btn-whatsapp {
-            display: block;
+        button {
             width: 100%;
+            padding: 14px;
             background-color: #25d366;
             color: #ffffff;
-            text-align: center;
-            padding: 15px;
             border: none;
             border-radius: 6px;
-            font-size: 18px;
+            font-size: 1.1rem;
             font-weight: bold;
             cursor: pointer;
-            margin-top: 25px;
-            transition: background-color 0.3s ease;
+            margin-top: 20px;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
-        .btn-whatsapp:hover {
-            background-color: #1ebc57;
+        button:hover {
+            background-color: #1ebd56;
         }
     </style>
 </head>
@@ -158,4 +143,106 @@
 
         <form id="appointmentForm">
             <div class="form-group">
-                <label for="name">Nombre Completo:</
+                <label for="name">Nombre Completo:</label>
+                <input type="text" id="name" placeholder="Ej. Juan Pérez" required>
+            </div>
+
+            <div class="form-group">
+                <label>Servicios:</label>
+                <div class="services-group">
+                    <label class="service-item">
+                        <span><input type="checkbox" value="Corte de cabello" data-price="100" class="service-cb"> Corte de cabello</span>
+                        <span class="price">$100</span>
+                    </label>
+                    <label class="service-item">
+                        <span><input type="checkbox" value="Corte de niño" data-price="70" class="service-cb"> Corte de niño</span>
+                        <span class="price">$70</span>
+                    </label>
+                    <label class="service-item">
+                        <span><input type="checkbox" value="Diseño" data-price="30" class="service-cb"> Diseño</span>
+                        <span class="price">$30</span>
+                    </label>
+                    <label class="service-item">
+                        <span><input type="checkbox" value="Cejas" data-price="30" class="service-cb"> Cejas</span>
+                        <span class="price">$30</span>
+                    </label>
+                    <label class="service-item">
+                        <span><input type="checkbox" value="Mascarilla" data-price="10" class="service-cb"> Mascarilla</span>
+                        <span class="price">$10</span>
+                    </label>
+                </div>
+                <div class="total-container">
+                    Total: $<span id="totalPrice">0</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="date">Fecha:</label>
+                <input type="date" id="date" required>
+            </div>
+
+            <div class="form-group">
+                <label for="time">Hora:</label>
+                <input type="time" id="time" required>
+            </div>
+
+            <button type="button" onclick="sendWhatsApp()">Agendar por WhatsApp</button>
+        </form>
+    </div>
+
+    <script>
+        const checkboxes = document.querySelectorAll('.service-cb');
+        const totalPriceEl = document.getElementById('totalPrice');
+
+        checkboxes.forEach(cb => {
+            cb.addEventListener('change', () => {
+                let total = 0;
+                checkboxes.forEach(c => {
+                    if (c.checked) {
+                        total += parseInt(c.getAttribute('data-price'));
+                    }
+                });
+                totalPriceEl.textContent = total;
+            });
+        });
+
+        function sendWhatsApp() {
+            const name = document.getElementById('name').value;
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+            
+            let selectedServices = [];
+            let total = 0;
+
+            checkboxes.forEach(cb => {
+                if (cb.checked) {
+                    selectedServices.push(cb.value);
+                    total += parseInt(cb.getAttribute('data-price'));
+                }
+            });
+
+            if (!name || !date || !time) {
+                alert('Por favor completa tu nombre, fecha y hora.');
+                return;
+            }
+
+            if (selectedServices.length === 0) {
+                alert('Por favor selecciona al menos un servicio.');
+                return;
+            }
+
+            const phone = "525616953301";
+            const message = `¡Hola Mich Barber! Quisiera agendar una cita.%0A%0A` +
+                            `*Cliente:* ${encodeURIComponent(name)}%0A` +
+                            `*Servicios:* ${encodeURIComponent(selectedServices.join(', '))}%0A` +
+                            `*Fecha:* ${date}%0A` +
+                            `*Hora:* ${time}%0A` +
+                            `*Total estimado:* $${total}`;
+
+            const url = `https://wa.me/${phone}?text=${message}`;
+            window.open(url, '_blank');
+        }
+    </script>
+
+</body>
+</html>
